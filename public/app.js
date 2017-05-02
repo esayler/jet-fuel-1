@@ -30,6 +30,7 @@ const createFolderLink = (linkInfo) => {
 const folderLinkFetch = (link, id) => {
   link.on('click', () => {
     console.log(id);
+    fetch(`/api/v1/${id}/urls`)
   })
 }
 

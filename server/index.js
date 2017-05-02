@@ -23,13 +23,20 @@ app.listen(app.get('port'), () => {
 });
 
 
-//Get Reqs
+//Get All Reqs
 app.get('/api/v1/folders', (request, response) => {
   response.json(app.locals.folders)
 })
 
 app.get('/api/v1/urls', (request, response) => {
   response.json(app.locals.urls)
+})
+
+
+//Get individual Folder urls
+app.get('/api/v1/:id/urls', (request, response) => {
+  console.log('here');
+  console.log(parseInt(request.params.id, 10));
 })
 
 
