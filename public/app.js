@@ -40,7 +40,7 @@ const folderLinkFetch = (link, id) => {
 const appendURLs = (urlList) => {
   $('#urls').empty();
   urlList.forEach(eachUrl => {
-    $('#urls').append(eachUrl.url)
+    $('#urls').append(`<a target="_blank" href="http://${eachUrl.url}">${eachUrl.url}</a>`)
   })
 }
 
