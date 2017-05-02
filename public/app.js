@@ -31,7 +31,15 @@ const folderLinkFetch = (link, id) => {
     })
     .then((data) => {
       console.log(data);
+      appendURLs(data);
     })
+  })
+}
+
+const appendURLs = (urlList) => {
+  $('#urls').empty();
+  urlList.forEach(eachUrl => {
+    $('#urls').append(eachUrl.url)
   })
 }
 
