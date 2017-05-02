@@ -35,11 +35,19 @@ app.get('/api/v1/urls', (request, response) => {
 
 //Get individual Folder urls
 app.get('/api/v1/folders/:id/urls', (request, response) => {
-  console.log('here');
-  console.log(parseInt(request.params.id, 10));
   const id = parseInt(request.params.id, 10);
   const matchedURLs = app.locals.urls.filter(url => id === url.activeFolder)
   response.json( matchedURLs )
+})
+
+
+//Short URL redirect
+app.get('/:id', (request, response) => {
+  const id = parseInt(request.params.id);
+  const matchedURL = app.locals.urls.filter(url => id === url.id);
+  const longURL = matchedURL[0].url;
+
+  response.redirect(`http://${longURL}`)
 })
 
 
@@ -53,7 +61,6 @@ app.post('/api/v1/folders', (request, response) => {
 })
 
 app.post('/api/v1/urls', (request, response) => {
-
   const id = app.locals.urls.length +1;
   const { url, activeFolder } = request.body;
 
