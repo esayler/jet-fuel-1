@@ -1,22 +1,41 @@
+$(() => {
+  fetch('/api/v1/folders')
+    .then(response => response.json())
+    .then(data => appendFolders(data))
+  fetch('/api/v1/urls')
+    .then(response => response.json())
+    .then(data => appendURLs(data))
+})
+
+const appendFolders = (folders) => {
+  folders.forEach(folder => {
+    $('#folders').append(folder.folderName)
+  })
+}
+const appendURLs= (urls) => {
+  urls.forEach(url => {
+    $('#urls').append(url.url)
+  })
+}
+
 $('.folder-submit').on('click', (e) => {
   e.preventDefault();
   const folderInput = $('.folder-input').val();
   addFolderFetch(folderInput)
 })
 
-const addFolderFetch = (folder) => {
+const addFolderFetch = (folderName) => {
   fetch('/api/v1/folders', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ folder })
+    body: JSON.stringify({ folderName })
   })
   .then((response) => {
     return response.json();
   }).then((data) => {
-    $('#folders').append(data.folder)
+    $('#folders').append(data.folderName)
   })
 }
-
 
 $('.url-submit').on('click', (e) => {
   e.preventDefault();
@@ -36,5 +55,3 @@ const addURLFetch = (url) => {
     $('#urls').append(data.url)
   })
 }
-
-
