@@ -1,29 +1,57 @@
+let activeFolder = undefined;
+
 $(() => {
   fetch('/api/v1/folders')
     .then(response => response.json())
     .then(data => appendFolders(data))
-  fetch('/api/v1/urls')
-    .then(response => response.json())
-    .then(data => appendURLs(data))
 })
 
 const appendFolders = (folders) => {
   folders.forEach(folder => {
-    $('#folders').append(folder.folderName)
+    createFolderLink(folder)
   })
+  activeFolder = undefined;
 }
-const appendURLs= (urls) => {
-  urls.forEach(url => {
-    $('#urls').append(url.url)
+
+//Helper function to create folder link button
+const createFolderLink = (linkInfo) => {
+  const { id, folderName } = linkInfo;
+  const folderLink = $(`<button id="${id}">${folderName}</button>`);
+  $('#folders').append(folderLink)
+  activeFolder = id;
+  folderLinkFetch(folderLink, id)
+}
+
+//Folder link closure
+const folderLinkFetch = (link, id) => {
+  link.on('click', () => {
+    activeFolder = id;
+    fetch(`/api/v1/folders/${id}/urls`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data);
+      appendURLs(data);
+    })
   })
 }
 
+const appendURLs = (urlList) => {
+  $('#urls').empty();
+  urlList.forEach(eachUrl => {
+    $('#urls').append(`<a target="_blank" href="http://${eachUrl.url}">${eachUrl.url}</a>`)
+  })
+}
+
+//Folder input handler
 $('.folder-submit').on('click', (e) => {
   e.preventDefault();
   const folderInput = $('.folder-input').val();
   addFolderFetch(folderInput)
 })
 
+// Folder input POST call and DOM append
 const addFolderFetch = (folderName) => {
   fetch('/api/v1/folders', {
     method: 'POST',
@@ -32,10 +60,13 @@ const addFolderFetch = (folderName) => {
   })
   .then((response) => {
     return response.json();
-  }).then((data) => {
-    $('#folders').append(data.folderName)
+  })
+  .then((data) => {
+    createFolderLink(data);
   })
 }
+
+
 
 $('.url-submit').on('click', (e) => {
   e.preventDefault();
@@ -47,11 +78,12 @@ const addURLFetch = (url) => {
   fetch('/api/v1/urls', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url })
+    body: JSON.stringify({ url, activeFolder })
   })
   .then((response) => {
     return response.json();
-  }).then((data) => {
+  })
+  .then((data) => {
     $('#urls').append(data.url)
   })
 }
