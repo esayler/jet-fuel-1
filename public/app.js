@@ -10,6 +10,7 @@ const appendFolders = (folders) => {
   folders.forEach(folder => {
     createFolderLink(folder)
   })
+  activeFolder = undefined;
 }
 
 //Helper function to create folder link button
