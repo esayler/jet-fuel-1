@@ -4,9 +4,6 @@ $(() => {
   fetch('/api/v1/folders')
     .then(response => response.json())
     .then(data => appendFolders(data))
-  // fetch('/api/v1/urls')
-  //   .then(response => response.json())
-  //   .then(data => appendURLs(data))
 })
 
 const appendFolders = (folders) => {
@@ -14,11 +11,6 @@ const appendFolders = (folders) => {
     createFolderLink(folder)
   })
 }
-// const appendURLs= (urls) => {
-//   urls.forEach(url => {
-//     $('#urls').append(url.url)
-//   })
-// }
 
 //Helper function to create folder link button
 const createFolderLink = (linkInfo) => {
