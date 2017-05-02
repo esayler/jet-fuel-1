@@ -1,3 +1,5 @@
+let activeFolder = undefined;
+
 $(() => {
   fetch('/api/v1/folders')
     .then(response => response.json())
@@ -23,14 +25,21 @@ const createFolderLink = (linkInfo) => {
   const { id, folderName } = linkInfo;
   const folderLink = $(`<button id="${id}">${folderName}</button>`);
   $('#folders').append(folderLink)
+  activeFolder = id;
   folderLinkFetch(folderLink, id)
 }
 
 //Folder link closure
 const folderLinkFetch = (link, id) => {
   link.on('click', () => {
-    console.log(id);
-    fetch(`/api/v1/${id}/urls`)
+    activeFolder = id;
+    fetch(`/api/v1/folders/${id}/urls`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data);
+    })
   })
 }
 
@@ -50,7 +59,8 @@ const addFolderFetch = (folderName) => {
   })
   .then((response) => {
     return response.json();
-  }).then((data) => {
+  })
+  .then((data) => {
     createFolderLink(data);
   })
 }
@@ -67,11 +77,12 @@ const addURLFetch = (url) => {
   fetch('/api/v1/urls', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url })
+    body: JSON.stringify({ url, activeFolder })
   })
   .then((response) => {
     return response.json();
-  }).then((data) => {
+  })
+  .then((data) => {
     $('#urls').append(data.url)
   })
 }
