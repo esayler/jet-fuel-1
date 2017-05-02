@@ -22,6 +22,8 @@ app.listen(app.get('port'), () => {
   console.log(`Server is listening on ${app.get('port')}.`)
 });
 
+
+//Get Reqs
 app.get('/api/v1/folders', (request, response) => {
   response.json(app.locals.folders)
 })
@@ -30,19 +32,20 @@ app.get('/api/v1/urls', (request, response) => {
   response.json(app.locals.urls)
 })
 
+
+//Post Reqs
 app.post('/api/v1/folders', (request, response) => {
   const id = app.locals.folders.length +1;
-  const { folder } = request.body;
+  const { folderName } = request.body;
 
-  app.locals.folders.push({ [id]: folder })
-  response.json({ id, folder })
+  app.locals.folders.push({ id, folderName })
+  response.json({ id, folderName })
 })
 
 app.post('/api/v1/urls', (request, response) => {
   const id = app.locals.urls.length +1;
   const { url } = request.body;
 
-  app.locals.urls.push({ [id]: url })
+  app.locals.urls.push({ id, url })
   response.json({ id, url })
 })
-
