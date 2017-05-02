@@ -2,28 +2,45 @@ $(() => {
   fetch('/api/v1/folders')
     .then(response => response.json())
     .then(data => appendFolders(data))
-  fetch('/api/v1/urls')
-    .then(response => response.json())
-    .then(data => appendURLs(data))
+  // fetch('/api/v1/urls')
+  //   .then(response => response.json())
+  //   .then(data => appendURLs(data))
 })
 
 const appendFolders = (folders) => {
   folders.forEach(folder => {
-    $('#folders').append(folder.folderName)
+    createFolderLink(folder)
   })
 }
-const appendURLs= (urls) => {
-  urls.forEach(url => {
-    $('#urls').append(url.url)
+// const appendURLs= (urls) => {
+//   urls.forEach(url => {
+//     $('#urls').append(url.url)
+//   })
+// }
+
+//Helper function to create folder link button
+const createFolderLink = (linkInfo) => {
+  const { id, folderName } = linkInfo;
+  const folderLink = $(`<button id="${id}">${folderName}</button>`);
+  $('#folders').append(folderLink)
+  folderLinkFetch(folderLink, id)
+}
+
+//Folder link closure
+const folderLinkFetch = (link, id) => {
+  link.on('click', () => {
+    console.log(id);
   })
 }
 
+//Folder input handler
 $('.folder-submit').on('click', (e) => {
   e.preventDefault();
   const folderInput = $('.folder-input').val();
   addFolderFetch(folderInput)
 })
 
+// Folder input POST call and DOM append
 const addFolderFetch = (folderName) => {
   fetch('/api/v1/folders', {
     method: 'POST',
@@ -33,9 +50,11 @@ const addFolderFetch = (folderName) => {
   .then((response) => {
     return response.json();
   }).then((data) => {
-    $('#folders').append(data.folderName)
+    createFolderLink(data);
   })
 }
+
+
 
 $('.url-submit').on('click', (e) => {
   e.preventDefault();
