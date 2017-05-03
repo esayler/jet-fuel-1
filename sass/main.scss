@@ -1,0 +1,100 @@
+@import "flat-colors";
+@import "mixins";
+@import url('https://fonts.googleapis.com/css?family=Baloo|Roboto');
+
+body {
+  background: #FAFAFA;
+  font-family: 'Roboto', sans-serif;
+}
+
+.title {
+  margin-top: 0;
+  padding-top: 5px;
+  color: $flat-gray-1;
+  font-family: 'Baloo', sans-serif;
+}
+
+.header {
+  background: $flat-gray-4;
+  height: 50px;
+  padding: 0 40px;
+}
+
+.btn {
+  @include btn-input-style;
+  padding: 10px;
+  min-height: 35px;
+  min-width: 50px;
+  background: $flat-blue-1;
+  color: $flat-gray-1;
+
+  &:hover {
+    background: lighten($flat-blue-1, 10%);
+    color: $flat-gray-1;
+  }
+}
+
+.btn-submit {
+  background: $flat-green-4;
+  color: $flat-gray-1;
+
+  &:hover {
+    background: $flat-green-3
+  }
+}
+
+.form-container {
+  display: flex;
+  align-items: center; 
+}
+
+.folder-btn {
+  @include btn-input-style; 
+  margin: 0 20px;
+  padding: 10px;
+  background: transparent;
+  color: $flat-gray-4;
+
+  &:hover {
+    background-color: $flat-gray-1; 
+    color: $flat-gray-4;
+  }
+
+   &.active {
+    background-color: $flat-orange-1;
+    color: $flat-gray-1;
+    // border: solid 1px $flat-yellow-1;
+    
+    &:hover {
+      background-color: $flat-yellow-1;
+      color: $flat-gray-1;
+    }
+
+    &:active {
+      background-color: $flat-orange-2;
+      color: $flat-gray-1;
+    }
+  }
+  
+  &:active {
+      background-color: $flat-gray-2;
+      color: $flat-gray-1;
+  }
+
+}
+
+.input {
+  @include btn-input-style;
+  padding: 5px;
+  height: 20px;
+  border: 1px solid $flat-gray-2;
+}
+
+#folders {
+  display: flex;
+  justify-content: space-around;
+}
+
+.content {
+  margin: 0 40px;
+}

@@ -17,7 +17,7 @@ const loopFolderData = (foldersList) => {
 const appendFolderLinks = (linkInfo) => {
   const { id, folderName } = linkInfo;
   const folderLink = $(`
-    <button class="btn folder-btn" id="${id}">${folderName}</button>
+    <button class="folder-btn" id="${id}">${folderName}</button>
   `);
   $('#folders').append(folderLink)
   activeFolder = id;
