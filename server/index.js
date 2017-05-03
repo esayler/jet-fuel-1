@@ -47,6 +47,8 @@ app.get('/:id', (request, response) => {
   const matchedURL = app.locals.urls.filter(url => id === url.id);
   const longURL = matchedURL[0].url;
 
+  matchedURL[0].visits++;
+
   response.redirect(`http://${longURL}`)
 })
 
@@ -63,9 +65,10 @@ app.post('/api/v1/folders', (request, response) => {
 app.post('/api/v1/urls', (request, response) => {
   const id = app.locals.urls.length +1;
   const { url, activeFolder } = request.body;
+  const visits = 0
 
   if(!activeFolder) { return response.sendStatus(400) }
 
-  app.locals.urls.push({ id, url, activeFolder })
-  response.json({ id, url })
+  app.locals.urls.push({ id, url, activeFolder, visits })
+  response.json({ id, url, visits })
 })
