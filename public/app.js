@@ -12,14 +12,16 @@ const appendFolders = (folders) => {
     createFolderLink(folder)
   })
   activeFolder = undefined;
+  $('#folders').children().removeClass('active')
 }
 
 //Helper function to create folder link button
 const createFolderLink = (linkInfo) => {
   const { id, folderName } = linkInfo;
-  const folderLink = $(`<button id="${id}">${folderName}</button>`);
+  const folderLink = $(`<button class="btn folder-btn" id="${id}">${folderName}</button>`);
   $('#folders').append(folderLink)
   activeFolder = id;
+  setActiveFolderClass(folderLink)
   folderLinkFetch(folderLink, id)
 }
 
@@ -27,6 +29,7 @@ const createFolderLink = (linkInfo) => {
 const folderLinkFetch = (link, id) => {
   link.on('click', () => {
     activeFolder = id;
+    setActiveFolderClass(link)
     fetch(`/api/v1/folders/${id}/urls`)
     .then((response) => {
       return response.json()
@@ -35,6 +38,11 @@ const folderLinkFetch = (link, id) => {
       appendURLs(folderData);
     })
   })
+}
+
+const setActiveFolderClass = (node) => {
+  node.addClass('active')
+  node.siblings().removeClass('active')
 }
 
 //function to append urls to DOM on folder button click
@@ -47,8 +55,8 @@ const appendURLs = (urlList) => {
 
 //Helper function to create url link nodes
 const createURLsLink = (urlInfo) => {
-  const { id, url } = urlInfo;
-  const urlATag = $(`<a href="/${id}" target="_blank">/${id}(${url})</a>`)
+  const { id, url, visits } = urlInfo;
+  const urlATag = $(`<a href="/${id}" target="_blank">/${id} => (${url})</a> <p> visits: ${visits} </p> </br>`)
   $('#urls').append(urlATag)
 }
 
@@ -70,8 +78,8 @@ const addFolderFetch = (folderName) => {
   .then((response) => {
     return response.json();
   })
-  .then((data) => {
-    createFolderLink(data);
+  .then((folderData) => {
+    createFolderLink(folderData);
   })
 }
 
@@ -92,7 +100,7 @@ const addURLFetch = (url) => {
   .then((response) => {
     return response.json();
   })
-  .then((data) => {
-    createURLsLink(data);
+  .then((urlData) => {
+    createURLsLink(urlData);
   })
 }
