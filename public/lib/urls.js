@@ -36,6 +36,7 @@ $('.url-submit').on('click', (e) => {
   e.preventDefault();
   const urlInput = $('.url-input').val();
   addUrlFetch(urlInput)
+  clearInputs();
 })
 
 // URL input POST call and DOM append

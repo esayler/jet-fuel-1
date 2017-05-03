@@ -31,6 +31,7 @@ $('.folder-submit').on('click', (e) => {
   const folderInput = $('.folder-input').val();
   addFolderFetch(folderInput)
   $('#urls').empty()
+  clearInputs();
 })
 
 // Folder input POST call and DOM append
