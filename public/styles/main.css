@@ -1,3 +1,42 @@
 body {
-  background: aqua;
+  background: #BBDEFB;
+  font-family: 'Helvetica Neue', sans-serif;
 }
+
+.title {
+  color: #212121;
+}
+
+.btn {
+  padding: 10px;
+  background: #FFFFFF;
+  color: #212121;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.active {
+  background-color: #FF9800;
+}
+
+.btn:hover {
+  background: #CDDC39;
+}
+
+.input {
+  padding: 5px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+/*#1976D2
+#2196F3
+#BBDEFB
+#FFFFFF
+#CDDC39
+#212121
+#757575
+#BDBDBD*/
