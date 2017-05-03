@@ -3,20 +3,27 @@
 @import url('https://fonts.googleapis.com/css?family=Baloo|Roboto');
 
 body {
-  background: #FAFAFA;
+  background: $flat-gray-1;
   font-family: 'Roboto', sans-serif;
 }
 
+.logo {
+  height: 40px;
+}
+
 .title {
-  margin-top: 0;
+  margin-left: 20px;
   padding-top: 5px;
-  color: $flat-gray-1;
+  color: white;
   font-family: 'Baloo', sans-serif;
+  font-size: 2.5em;
 }
 
 .header {
+  display: flex;
+  align-items: center;
   background: $flat-gray-4;
-  height: 50px;
+  height: 60px;
   padding: 0 40px;
 }
 

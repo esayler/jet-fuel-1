@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const favicon = require('serve-favicon');
 // const router = require('./router');
 
 app.use(bodyParser.json());
@@ -14,8 +15,9 @@ app.set('port', process.env.PORT || 3000);
 app.locals.urls = [];
 app.locals.folders = [];
 
-app.use(express.static(path.join(__dirname, '../public')));
 
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname, '../', 'public', 'favicon.ico')));
 // app.use('/api/v1', router);
 
 app.listen(app.get('port'), () => {
