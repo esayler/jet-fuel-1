@@ -54,10 +54,13 @@ const deleteFolder = (deleteBtn, id) => {
   })
 }
 
+
 //Folder input handler
 $('.folder-submit').on('click', (e) => {
   e.preventDefault();
   const folderInput = $('.folder-input').val();
+  if (!validateInput(folderInput, 'Please enter a valid folder name!')) { return }
+
   addFolderFetch(folderInput)
   $('#urls').empty()
   clearInputs();

@@ -42,7 +42,7 @@ const appendUrlATags = (urlInfo) => {
         ${document.URL + id}
       </a>
       <p class="info visits">
-        <i class="fa fa-eye" aria-hidden="true"></i> 
+        <i class="fa fa-eye" aria-hidden="true"></i>
         Visits: ${visits}
       </p>
       <p class="info created-at"><i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -73,9 +73,23 @@ const deleteURL = (deleteBtn, id) => {
 //URL input handler
 $('.url-submit').on('click', (e) => {
   e.preventDefault();
+  $('.error-msg').empty()
+
+  if (!activeFolder) {
+    return $('.error-msg').text('No folder selected')
+  }
+
   const urlInput = $('.url-input').val();
-  addUrlFetch(urlInput)
-  clearInputs();
+  const regex = /[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig;
+  const matches = urlInput.match(regex)
+  console.log(matches)
+
+  if (matches) {
+    addUrlFetch(matches[0])
+    clearInputs();
+  } else {
+    return $('.error-msg').text('Please enter a valid URL')
+  }
 })
 
 // URL input POST call and DOM append
