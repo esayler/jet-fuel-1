@@ -18,6 +18,29 @@ const handleErrors = (res) => {
   return res;
 }
 
-$('.btn-sort-date').on('click', () => {
-  console.log('test');
+//Closure to toggle each qqsort button
+const sortStatus = (() => {
+  let sortOrderVisits = 'desc'
+  let sortOrderCreatedAt = 'desc'
+
+  return {
+    toggleSortOrder: (key) => {
+      if (key === 'visits') {
+        return sortOrderVisits = sortOrderVisits === 'desc' ? 'asc' : 'desc';
+      } else if (key === 'created_at') {
+        return sortOrderCreatedAt = sortOrderCreatedAt === 'desc' ? 'asc' : 'desc';
+      }
+    }
+  }
+})();
+
+//Sorting fucntion
+$('.btn-sort').on('click', function() {
+  fetch(`/api/v1/folders/${activeFolder}/urls?key=${this.name}&order=${sortStatus.toggleSortOrder(this.name)}`)
+    .then(response => {
+      return response.json()
+    })
+    .then(folderURLsList => {
+      loopUrlData(folderURLsList);
+    })
 })
