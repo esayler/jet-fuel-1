@@ -18,6 +18,16 @@ const handleErrors = (res) => {
   return res;
 }
 
+const validateInput = (inputValue, msg) => {
+  $('.error-msg').empty()
+  if (inputValue.length === 0) {
+    $('.error-msg').append(`${msg}`)
+    return false;
+  }
+
+  return true;
+}
+
 //Closure to toggle each qqsort button
 const sortStatus = (() => {
   let sortOrderVisits = 'desc'
