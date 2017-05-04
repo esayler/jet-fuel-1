@@ -8,7 +8,6 @@ const database = require('knex')(configuration);
 //Short URL redirect
 redirect.get('/:id', (request, response) => {
   const id = parseInt(request.params.id);
-  console.log('short URL get');
   database('urls').where('id', id).increment('visits', 1)
     .then(() => {
       return database('urls').where('id', id).select('long_url')
