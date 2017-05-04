@@ -6,18 +6,18 @@ $(() => {
 
 //Function to append folders to DOM
 const loopFolderData = (foldersList) => {
-  foldersList.forEach(folder =>
+  foldersList.forEach(folder => {
     appendFolderLinks(folder)
-  )
+  })
   activeFolder = undefined;
   $('#folders').children().removeClass('active')
 }
 
 //Helper function to create folder link button
 const appendFolderLinks = (linkInfo) => {
-  const { id, folderName } = linkInfo;
+  const { id, folder_name } = linkInfo;
   const folderLink = $(`
-    <button class="folder-btn" id="${id}">${folderName}</button>
+    <button class="folder-btn" id="${id}">${folder_name}</button>
   `);
   $('#folders').append(folderLink)
   activeFolder = id;
@@ -35,11 +35,11 @@ $('.folder-submit').on('click', (e) => {
 })
 
 // Folder input POST call and DOM append
-const addFolderFetch = (folderName) => {
+const addFolderFetch = (folder_name) => {
   fetch('/api/v1/folders', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ folderName })
+    body: JSON.stringify({ folder_name })
   })
   .then(response => {
     return response.json();

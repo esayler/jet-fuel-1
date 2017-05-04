@@ -5,14 +5,15 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 // const router = require('./router');
 
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('../knexfile')[environment];
+const database = require('knex')(configuration);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.set('port', process.env.PORT || 3000);
-
-app.locals.urls = [];
-app.locals.folders = [];
 
 app.use(express.static(path.join(__dirname, '../public')));
 
@@ -25,50 +26,74 @@ app.listen(app.get('port'), () => {
 
 //Get All Reqs
 app.get('/api/v1/folders', (request, response) => {
-  response.json(app.locals.folders)
+  database('folders').select()
+    .then(folders => {
+      response.status(200).json(folders);
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
 })
 
 app.get('/api/v1/urls', (request, response) => {
-  response.json(app.locals.urls)
+  database('urls').select()
+    .then(urls => {
+      response.status(200).json(urls)
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
 })
 
 
 //Get individual Folder urls
 app.get('/api/v1/folders/:id/urls', (request, response) => {
   const id = parseInt(request.params.id, 10);
-  const matchedURLs = app.locals.urls.filter(url => id === url.activeFolder)
-  response.json( matchedURLs )
+  database('urls').where('folder_id', id).select()
+    .then(urls => {
+      response.status(200).json(urls)
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
 })
 
 
 //Short URL redirect
 app.get('/:id', (request, response) => {
   const id = parseInt(request.params.id);
-  const matchedURL = app.locals.urls.filter(url => id === url.id);
-  const longURL = matchedURL[0].url;
-
-  matchedURL[0].visits++;
-
-  response.redirect(`http://${longURL}`)
+  database('urls').where('id', id).increment('visits', 1)
+    .then(() => {
+      return database('urls').where('id', id).select('long_url')
+    })
+    .then(matchedURL => {
+      const { long_url } = matchedURL[0];
+      response.redirect(`http://${long_url}`);
+    })
 })
 
 
 //Post Reqs
 app.post('/api/v1/folders', (request, response) => {
-  const id = app.locals.folders.length +1;
-  const { folderName } = request.body;
-
-  app.locals.folders.push({ id, folderName })
-  response.json({ id, folderName })
+  const { folder_name } = request.body;
+  database('folders').insert({ folder_name }, ['id', 'folder_name'])
+    .then(folder => {
+      response.status(201).json(...folder)
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
 })
 
 app.post('/api/v1/urls', (request, response) => {
-  const id = app.locals.urls.length +1;
   const { url, activeFolder } = request.body;
-  const visits = 0
-
   if(!activeFolder) { return response.sendStatus(400) }
 
-  app.locals.urls.push({ id, url, activeFolder, visits })
-  response.json({ id, url, visits })
+  database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits' ])
+    .then(url => {
+      response.status(201).json(...url)
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
 })
