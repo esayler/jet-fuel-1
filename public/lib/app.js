@@ -10,3 +10,14 @@ const setActiveFolderClass = (node) => {
 const clearInputs = () => {
   $(':text').val('');
 }
+
+const handleErrors = (res) => {
+  if (!res.ok) {
+    throw Error(res);
+  }
+  return res;
+}
+
+$('.btn-sort-date').on('click', () => {
+  console.log('test');
+})
