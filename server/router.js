@@ -28,7 +28,6 @@ router.get('/urls', (request, response) => {
 
 //Get individual Folder urls
 router.get('/folders/:id/urls', (request, response) => {
-  console.log('folder urls');
   const id = parseInt(request.params.id, 10);
   database('urls').where('folder_id', id).select()
     .then(urls => {
@@ -42,7 +41,6 @@ router.get('/folders/:id/urls', (request, response) => {
 //Post Reqs
 router.post('/folders', (request, response) => {
   const { folder_name } = request.body;
-  console.log('post folder');
   database('folders').insert({ folder_name }, ['id', 'folder_name'])
     .then(folder => {
       response.status(201).json(...folder)
@@ -54,12 +52,24 @@ router.post('/folders', (request, response) => {
 
 router.post('/urls', (request, response) => {
   const { url, activeFolder } = request.body;
-  console.log('post url');
   if(!activeFolder) { return response.sendStatus(400) }
 
   database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits', 'created_at' ])
     .then(url => {
       response.status(201).json(...url)
+    })
+    .catch(error => {
+      console.error('error:', error);
+    })
+})
+
+//Delete Reqs
+router.delete('/urls/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('urls').where('id', id).del()
+    .then(() => {
+      response.sendStatus(200)
     })
     .catch(error => {
       console.error('error:', error);
