@@ -1,11 +1,17 @@
 $(() => {
+  fetchAllFolders()
+})
+
+//Fetch all folders
+const fetchAllFolders = () => {
   fetch('/api/v1/folders')
     .then(response => response.json())
     .then(foldersList => loopFolderData(foldersList))
-})
+}
 
 //Function to append folders to DOM
 const loopFolderData = (foldersList) => {
+  $('#folders').empty();
   foldersList.forEach(folder => {
     appendFolderLinks(folder)
   })
@@ -20,10 +26,32 @@ const appendFolderLinks = (linkInfo) => {
   const folderLink = $(`
     <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o" aria-hidden="true"></i>${folder_name}</button>
   `);
-  $('#folders').append(folderLink)
+  const deleteBtn = $(`
+    <button class="delete-btn" id="${id}">X</button>
+  `)
+  $('#folders').append(folderLink.append(deleteBtn))
   activeFolder = id;
   setActiveFolderClass(folderLink)
   folderUrlFetch(folderLink, id)
+  deleteFolder(deleteBtn, id)
+}
+
+//Delete Folder & URL closure
+const deleteFolder = (deleteBtn, id) => {
+  deleteBtn.on('click', (e) => {
+    e.stopPropagation()
+    fetch(`/api/v1/folders/${id}`, {
+      method: 'DELETE'
+    })
+    .then(handleErrors)
+    .then(res => {
+      fetchAllFolders()
+      $('#urls').empty();
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  })
 }
 
 //Folder input handler
