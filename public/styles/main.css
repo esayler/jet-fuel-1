@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Oswald|Permanent+Marker|Roboto:300,400");
 body {
-  background: #cfd9db;
+  background: #ECF0F1;
   font-family: 'Roboto', sans-serif;
   font-weight: lighter; }
 
@@ -27,18 +27,22 @@ body {
   padding: 10px;
   min-height: 35px;
   min-width: 50px;
-  background: #3498DB;
-  color: #ECF0F1;
+  background: transparent;
+  color: #3498DB;
+  border: 1px solid #3498DB;
   font-weight: lighter; }
   .btn:hover {
     background: #5faee3;
     color: #ECF0F1; }
 
 .btn-submit {
-  background: #27AE60;
-  color: #ECF0F1; }
+  background: #FAFAFA;
+  background: transparent;
+  color: #27AE60;
+  border: 1px solid #27AE60; }
   .btn-submit:hover {
-    background: #2ECC71; }
+    background: #27AE60;
+    color: #ECF0F1; }
 
 .form-container {
   margin: 20px auto;
@@ -48,23 +52,30 @@ body {
   align-items: center;
   max-width: 700px; }
 
+.folder-icon {
+  margin-right: 5px; }
+
 .folder-btn {
   border: none;
   outline: none;
   border-radius: 5px;
   margin: 0 20px;
   padding: 10px;
-  background: #FAFAFA;
+  background: transparent;
+  border: 1px solid #7F8C8D;
   color: #7F8C8D;
-  font-weight: lighter; }
+  font-weight: lighter;
+  font-size: 1.5em; }
   .folder-btn:hover {
-    background-color: #34495E;
-    color: #ECF0F1; }
+    background-color: #95A5A6;
+    color: white;
+    border-color: transparent; }
   .folder-btn.active {
     background-color: #F39C12;
-    color: #ECF0F1; }
+    color: #ECF0F1;
+    border-color: transparent; }
     .folder-btn.active:hover {
-      background-color: #F1C40F;
+      background-color: #f5b043;
       color: #ECF0F1; }
     .folder-btn.active:active {
       background-color: #E67E22;
@@ -107,8 +118,9 @@ hr {
 .card {
   width: 300px;
   border-radius: 5px;
+  border: 1px solid #ECF0F1;
   margin: 10px;
-  background: #ECF0F1;
+  background: #f8f9fa;
   padding: 20px; }
   .card:hover {
     background: white; }
@@ -123,13 +135,12 @@ hr {
     text-decoration: underline; }
 
 .url-short {
-  font-weight: lighter;
   margin: 1em 0;
   display: block;
   text-decoration: none;
-  color: #95A5A6; }
+  color: #7F8C8D; }
   .url-short:hover {
-    color: #3498DB;
+    color: #2980B9;
     text-decoration: underline; }
 
 .visits {
