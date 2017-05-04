@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const utils = require('./utils.js')
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
 const database = require('knex')(configuration);
+
 
 //Get All Reqs
 router.get('/folders', (request, response) => {
@@ -19,7 +21,8 @@ router.get('/folders', (request, response) => {
 router.get('/urls', (request, response) => {
   database('urls').select()
     .then(urls => {
-      response.status(200).json(urls)
+      const convertedUrls = utils.convertTimestamps(urls)
+      response.status(200).json(convertedUrls)
     })
     .catch(error => {
       console.error('error:', error);
@@ -35,7 +38,8 @@ router.get('/folders/:id/urls', (request, response) => {
   const id = parseInt(request.params.id, 10);
   database('urls').where('folder_id', id).select().orderBy(sortKey, sortOrder)
     .then(urls => {
-      response.status(200).json(urls)
+      const convertedUrls = utils.convertTimestamps(urls)
+      response.status(200).json(convertedUrls)
     })
     .catch(error => {
       console.error('error:', error);
@@ -59,8 +63,9 @@ router.post('/urls', (request, response) => {
   if(!activeFolder) { return response.sendStatus(400) }
 
   database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits', 'created_at' ])
-    .then(url => {
-      response.status(201).json(...url)
+    .then(urls => {
+      const convertedUrls = utils.convertTimestamps(urls)
+      response.status(201).json(...convertedUrls)
     })
     .catch(error => {
       console.error('error:', error);

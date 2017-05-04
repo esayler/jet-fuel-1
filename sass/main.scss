@@ -68,7 +68,6 @@ body {
    margin-right: 5px;
  }
 
- 
 .folder-btn {
   @include btn-input-style; 
 
@@ -79,8 +78,6 @@ body {
   color: $flat-gray-4;
   font-weight: lighter;
   font-size: 1.5em;
-
-
 
   &:hover {
     background-color: $flat-gray-3;
@@ -182,6 +179,27 @@ hr {
     text-decoration: underline;
   }
 }
+
+.delete-folder-btn {
+  &:hover {
+    color: $flat-red-1;
+  }
+}
+
+.created-at {
+  color: $flat-gray-2;
+}
+
+.delete-url-btn {
+  display: block;
+  float: right;
+  color: $flat-gray-2;
+
+  &:hover {
+    color: $flat-alizarin;
+  }
+}
+
 
 .visits {
   font-weight: lighter;

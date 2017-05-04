@@ -29,16 +29,27 @@ const loopUrlData = (urlList) => {
 //Helper function to create url link nodes
 const appendUrlATags = (urlInfo) => {
   const { id, long_url, visits, created_at } = urlInfo;
-  const deleteURLButton = $(`<button class="delete-url" id="${id}">Delete</button>`)
+  const deleteURLButton = $(`<i class="delete-url-btn fa fa-trash-o" id=${id} aria-hidden="true"></i>`)
   const urlATag = $(`
     <article class="card url-card">
-      <a class="link url-link" href="/${id}" target="_blank">${long_url}</a>
+      <a class="link url-link" href="/${id}" target="_blank">
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+        ${long_url}
+      </a>
       <hr/>
-      <a class="info url-short" href="/${id}" target="_blank">${document.URL + id}</a>
-      <p class="info visits">visits: ${visits}</p>
-      <p> created: ${created_at} </p>
+      <a class="info url-short" href="/${id}" target="_blank">
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+        ${document.URL + id}
+      </a>
+      <p class="info visits">
+        <i class="fa fa-eye" aria-hidden="true"></i> 
+        Visits: ${visits}
+      </p>
+      <p class="info created-at"><i class="fa fa-clock-o" aria-hidden="true"></i>
+         Created: ${created_at}
+      </p>
     </article>
-  `).append(deleteURLButton)
+  `).prepend(deleteURLButton)
   $('#urls').append(urlATag)
   deleteURL(deleteURLButton, id)
 }
