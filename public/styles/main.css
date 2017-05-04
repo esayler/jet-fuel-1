@@ -59,7 +59,7 @@ body {
   border: none;
   outline: none;
   border-radius: 5px;
-  margin: 0 20px;
+  margin: 10px;
   padding: 10px;
   background: transparent;
   border: 1px solid #7F8C8D;
@@ -93,9 +93,10 @@ body {
   border: 1px solid #BDC3C7; }
 
 #folders {
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  flex-wrap: wrap;
   max-width: 700px; }
 
 #urls {
