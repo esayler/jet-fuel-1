@@ -72,7 +72,22 @@ router.delete('/urls/:id', (request, response) => {
       response.sendStatus(200)
     })
     .catch(error => {
-      console.error('error:', error);
+      response.sendStatus(500)
+    })
+})
+
+router.delete('/folders/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('urls').where('folder_id', id).del()
+    .then(() => {
+      return database('folders').where('id', id).del()
+    })
+    .then(() => {
+      response.sendStatus(200)
+    })
+    .catch(error => {
+      response.sendStatus(500)
     })
 })
 

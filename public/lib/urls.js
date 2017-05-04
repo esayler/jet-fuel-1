@@ -18,7 +18,7 @@ const urlFetchAll = (id) => {
   })
 }
 
-//function to append urls to DOM on folder button click
+//Clear out all urls and reappend
 const loopUrlData = (urlList) => {
   $('#urls').empty();
   urlList.forEach(eachUrl =>
@@ -49,8 +49,12 @@ const deleteURL = (deleteBtn, id) => {
     fetch(`/api/v1/urls/${id}`, {
       method: 'DELETE',
     })
-    .then(() => {
+    .then(handleErrors)
+    .then(res => {
       urlFetchAll(activeFolder)
+    })
+    .catch(err => {
+      console.error(err);
     })
   })
 }
