@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Jet-Fuel</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="./styles/normalize.css">
     <link rel="stylesheet" type="text/css" href="./styles/main.css">
-    <title>Jet-Fuel</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
   <body>
     <section class="header">
-      <h1 class="title">Jet Fuel </h1>
+      <img class="logo" src="./assets/images/polygonal-jet-aircraft-white.svg" alt="logo">
+      <h1 class="title">Jet Fuel</h1>
     </section>
     <section class="content">
       <section class='form-container'>
@@ -20,13 +22,11 @@
           <input class="input url-input" type="text" placeholder="URL" />
           <input class="btn btn-submit url-submit" type="submit" />
         </form>
+        <button class='btn btn-sort btn-sort-date'>Sort Date</button>
+        <button class='btn btn-sort btn-sort-visits'>Sort Visits</button>
       </section>
-      <section id="folders">
-
-      </section>
-      <section id="urls">
-
-      </section>
+      <section id="folders"></section>
+      <section id="urls"></section>
     </section>
   </body>
   <script

@@ -1,22 +1,29 @@
 @import "flat-colors";
 @import "mixins";
-@import url('https://fonts.googleapis.com/css?family=Baloo|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Oswald|Permanent+Marker|Roboto:300,400');
 
 body {
-  background: #FAFAFA;
+  background: $flat-gray-1;
   font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+}
+
+.logo {
+  height: 40px;
 }
 
 .title {
-  margin-top: 0;
-  padding-top: 5px;
-  color: $flat-gray-1;
-  font-family: 'Baloo', sans-serif;
+  margin-left: 20px;
+  color: white;
+  font-family: 'Permanent Marker', 'Helvetica Neue', sans-serif;
+  font-size: 2em;
 }
 
 .header {
+  display: flex;
+  align-items: center;
   background: $flat-gray-4;
-  height: 50px;
+  height: 60px;
   padding: 0 40px;
 }
 
@@ -25,8 +32,10 @@ body {
   padding: 10px;
   min-height: 35px;
   min-width: 50px;
-  background: $flat-blue-1;
-  color: $flat-gray-1;
+  background: transparent;
+  color: $flat-blue-1; 
+  border: 1px solid $flat-blue-1;
+  font-weight: lighter;
 
   &:hover {
     background: lighten($flat-blue-1, 10%);
@@ -35,39 +44,59 @@ body {
 }
 
 .btn-submit {
-  background: $flat-green-4;
-  color: $flat-gray-1;
+  background: #FAFAFA;
+  background: transparent;
+  color: $flat-green-4; 
+  border: 1px solid $flat-green-4;
 
   &:hover {
-    background: $flat-green-3
+    background: $flat-green-4;
+    color: $flat-gray-1;
   }
 }
 
 .form-container {
+  margin: 20px auto;
   display: flex;
-  align-items: center; 
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 700px;
 }
 
+ .folder-icon {
+   margin-right: 5px;
+ }
+
+ 
 .folder-btn {
   @include btn-input-style; 
+
   margin: 0 20px;
   padding: 10px;
   background: transparent;
+  border: 1px solid $flat-gray-4; 
   color: $flat-gray-4;
+  font-weight: lighter;
+  font-size: 1.5em;
+
+
 
   &:hover {
-    background-color: $flat-gray-1; 
-    color: $flat-gray-4;
+    background-color: $flat-gray-3;
+    color: lighten($flat-gray-1, 10%);
+    border-color: transparent;
   }
 
    &.active {
     background-color: $flat-orange-1;
     color: $flat-gray-1;
-    // border: solid 1px $flat-yellow-1;
+    border-color: transparent;
     
     &:hover {
-      background-color: $flat-yellow-1;
+      background-color: lighten($flat-orange-1, 10%);
       color: $flat-gray-1;
+
     }
 
     &:active {
@@ -80,8 +109,9 @@ body {
       background-color: $flat-gray-2;
       color: $flat-gray-1;
   }
-
 }
+
+ 
 
 .input {
   @include btn-input-style;
@@ -92,9 +122,86 @@ body {
 
 #folders {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+#urls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
 }
 
 .content {
   margin: 0 40px;
+}
+
+hr {
+  z-index: 999;
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card {
+  width: 300px;
+  border-radius: 5px; 
+  border: 1px solid $flat-gray-1;
+  margin: 10px;
+  background: lighten($flat-gray-1, 4%);
+  padding: 20px;
+
+  &:hover {
+    background: lighten($flat-gray-1, 15%);
+  }
+}
+
+.url-link {
+   font-family: 'Oswald', sans-serif;
+   font-size: 1.5em;
+   text-decoration: none;
+   color: $flat-blue-3;
+
+   &:hover {
+     color: $flat-blue-2;
+     text-decoration: underline;
+   }
+}
+
+.url-short {
+  margin: 1em 0; 
+  display: block;
+  text-decoration: none;
+  color: $flat-gray-4;
+  
+  &:hover {
+    color: $flat-blue-2;
+    text-decoration: underline;
+  }
+}
+
+.visits {
+  font-weight: lighter;
+  color: $flat-gray-2;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $flat-gray-2;
+  font-weight: lighter;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: $flat-gray-2;
+  font-weight: lighter;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: $flat-gray-2;
+  font-weight: lighter;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $flat-gray-2;
+  font-weight: lighter;
 }

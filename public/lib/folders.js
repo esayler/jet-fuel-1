@@ -11,13 +11,14 @@ const loopFolderData = (foldersList) => {
   })
   activeFolder = undefined;
   $('#folders').children().removeClass('active')
+  $('#folders').children().children('.fa').removeClass('fa-folder-open')
 }
 
 //Helper function to create folder link button
 const appendFolderLinks = (linkInfo) => {
   const { id, folder_name } = linkInfo;
   const folderLink = $(`
-    <button class="folder-btn" id="${id}">${folder_name}</button>
+    <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o" aria-hidden="true"></i>${folder_name}</button>
   `);
   $('#folders').append(folderLink)
   activeFolder = id;
