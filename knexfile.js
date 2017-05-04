@@ -14,6 +14,18 @@ module.exports = {
     }
   },
 
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/jet_fuel_test',
+    useNullAsDefault: true,
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/test'
+    }
+  },
+
   staging: {
     client: 'postgresql',
     connection: {
