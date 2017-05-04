@@ -12,7 +12,8 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

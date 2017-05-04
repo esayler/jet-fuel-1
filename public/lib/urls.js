@@ -25,8 +25,12 @@ const loopUrlData = (urlList) => {
 const appendUrlATags = (urlInfo) => {
   const { id, url, visits } = urlInfo;
   const urlATag = $(`
-    <a href="/${id}" target="_blank">/${id} => (${url})</a>
-    <p> visits: ${visits} </p> </br>
+    <article class="card url-card">
+      <a class="link url-link" href="/${id}" target="_blank">${url}</a>
+      <hr/>
+      <a class="info url-short" href="/${id}" target="_blank">${document.URL + id}</a>
+      <p class="info visits">visits: ${visits}</p> 
+    </article>
   `)
   $('#urls').append(urlATag)
 }
