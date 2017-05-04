@@ -23,10 +23,11 @@ const loopUrlData = (urlList) => {
 
 //Helper function to create url link nodes
 const appendUrlATags = (urlInfo) => {
-  const { id, long_url, visits } = urlInfo;
+  const { id, long_url, visits, created_at } = urlInfo;
   const urlATag = $(`
     <a href="${id}" target="_blank">/${id} => (${long_url})</a>
     <p> visits: ${visits} </p> </br>
+    <p> created: ${created_at} </p>
   `)
   $('#urls').append(urlATag)
 }

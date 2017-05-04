@@ -57,7 +57,7 @@ router.post('/urls', (request, response) => {
   console.log('post url');
   if(!activeFolder) { return response.sendStatus(400) }
 
-  database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits' ])
+  database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits', 'created_at' ])
     .then(url => {
       response.status(201).json(...url)
     })
