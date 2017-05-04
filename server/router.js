@@ -32,8 +32,12 @@ router.get('/urls', (request, response) => {
 
 //Get individual Folder urls
 router.get('/folders/:id/urls', (request, response) => {
+  const { order, key } = request.query
+  const sortOrder = order || 'desc'
+  const sortKey = key || 'created_at'
+
   const id = parseInt(request.params.id, 10);
-  database('urls').where('folder_id', id).select()
+  database('urls').where('folder_id', id).select().orderBy(sortKey, sortOrder)
     .then(urls => {
       console.log(urls)
       console.log(utils.convertTimestamps(urls))
