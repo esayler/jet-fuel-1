@@ -5,6 +5,8 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
 const database = require('knex')(configuration);
 
+const utils = require('./utils.js')
+
 //Get All Reqs
 router.get('/folders', (request, response) => {
   database('folders').select()
@@ -19,7 +21,9 @@ router.get('/folders', (request, response) => {
 router.get('/urls', (request, response) => {
   database('urls').select()
     .then(urls => {
-      response.status(200).json(urls)
+      console.log(utils.convertTimestamps(urls))
+      const convertedUrls = utils.convertTimestamps(urls)
+      response.status(200).json(convertedUrls)
     })
     .catch(error => {
       console.error('error:', error);
@@ -31,7 +35,10 @@ router.get('/folders/:id/urls', (request, response) => {
   const id = parseInt(request.params.id, 10);
   database('urls').where('folder_id', id).select()
     .then(urls => {
-      response.status(200).json(urls)
+      console.log(urls)
+      console.log(utils.convertTimestamps(urls))
+      const convertedUrls = utils.convertTimestamps(urls)
+      response.status(200).json(convertedUrls)
     })
     .catch(error => {
       console.error('error:', error);

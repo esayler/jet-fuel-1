@@ -144,6 +144,19 @@ hr {
     color: #2980B9;
     text-decoration: underline; }
 
+.delete-folder-btn:hover {
+  color: #E74C3C; }
+
+.created-at {
+  color: #BDC3C7; }
+
+.delete-url-btn {
+  display: block;
+  float: right;
+  color: #BDC3C7; }
+  .delete-url-btn:hover {
+    color: #E74C3C; }
+
 .visits {
   font-weight: lighter;
   color: #BDC3C7; }

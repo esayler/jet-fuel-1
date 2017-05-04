@@ -16,14 +16,22 @@
       <section class='form-container'>
         <form class="folder-form">
           <input class="input folder-input" type="text" placeholder="Folder Title" />
-          <input class="btn btn-submit folder-submit" type="submit" />
+          <button class="btn btn-submit folder-submit">Add Folder</button>
         </form>
         <form class="url-form">
           <input class="input url-input" type="text" placeholder="URL" />
-          <input class="btn btn-submit url-submit" type="submit" />
+          <button class="btn btn-submit url-submit">
+            Add Link
+          </button>
         </form>
-        <button class='btn btn-sort btn-sort-date'>Sort Date</button>
-        <button class='btn btn-sort btn-sort-visits'>Sort Visits</button>
+        <button class='btn btn-sort btn-sort-date'>
+          <i class="fa fa-sort" aria-hidden="true"></i> 
+          Date
+        </button>
+        <button class='btn btn-sort btn-sort-visits'>
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Visits
+        </button>
       </section>
       <section id="folders"></section>
       <section id="urls"></section>

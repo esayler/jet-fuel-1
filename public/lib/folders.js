@@ -24,10 +24,10 @@ const loopFolderData = (foldersList) => {
 const appendFolderLinks = (linkInfo) => {
   const { id, folder_name } = linkInfo;
   const folderLink = $(`
-    <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o" aria-hidden="true"></i>${folder_name}</button>
+    <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o fa-fw" aria-hidden="true"></i>${folder_name}</button>
   `);
   const deleteBtn = $(`
-    <button class="delete-btn" id="${id}">X</button>
+    <i class="delete-folder-btn fa fa-trash fa-fw" id="${id}" aria-hidden="true"></i>
   `)
   $('#folders').append(folderLink.append(deleteBtn))
   activeFolder = id;
