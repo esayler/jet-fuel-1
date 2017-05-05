@@ -353,7 +353,7 @@ describe('Api Routes', () => {
       })
     }).timeout(5000);
 
-    it.only('should produce a redirect and increment visits for that url', (done) => {
+    it('should produce a redirect and increment visits for that url', (done) => {
       chai.request(server)
       .get('/1')
       .end((error, response) => {
