@@ -313,6 +313,18 @@ describe('Api Routes', () => {
     })
   })
 
-})
+  describe('GET /:id', () => {
+    it('should produce a redirect', (done) => {
+      chai.request(server)
+      .get('/2')
+      .end((error, response) => {
+        response.should.have.status(200)
+        response.request.url.should.equal('https://www.nufc.co.uk/')
+        response.should.redirect
+        response.should.redirectTo('https://www.nufc.co.uk/');
+        done()
+      })
+    })
+  })
 
-//REDIRECT
+})
