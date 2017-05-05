@@ -278,7 +278,7 @@ describe('Api Routes', () => {
   })
 
   describe('DELETE /api/v1/folders/:id', () => {
-    it('should create a new url', (done) => {
+    it('should delete a folder', (done) => {
       chai.request(server)
       .get('/api/v1/folders')
       .end((err, response) => {
@@ -286,7 +286,7 @@ describe('Api Routes', () => {
         response.body[0].folder_name.should.equal('NUFC')
         response.body[1].folder_name.should.equal('Code')
         chai.request(server)
-        .delete('/api/v1/folders/2')
+        .delete('/api/v1/folders/1')
         .end((err, response) => {
           response.should.have.status(200)
           chai.request(server)
@@ -295,7 +295,7 @@ describe('Api Routes', () => {
             response.should.be.json
             response.body.should.be.a('array')
             response.body.length.should.equal(1)
-            response.body[0].folder_name.should.equal('NUFC')
+            response.body[0].folder_name.should.equal('Code')
             done()
           })
         })
