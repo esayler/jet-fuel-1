@@ -16,6 +16,7 @@ body {
 .header {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: #7F8C8D;
   height: 60px;
   padding: 0 40px; }
@@ -68,21 +69,22 @@ body {
   font-weight: lighter;
   font-size: 1.5em; }
   .folder-btn .delete-folder-btn {
-    display: inline-block;
     float: right;
-    margin-left: 10px;
+    margin-left: 15px;
     font-size: .75em;
     height: 10px; }
+    .folder-btn .delete-folder-btn:hover {
+      color: #E74C3C; }
   .folder-btn:hover {
-    background-color: #95A5A6;
+    background-color: #BDC3C7;
     color: white;
     border-color: transparent; }
   .folder-btn.active {
-    background-color: #F39C12;
+    background-color: #95A5A6;
     color: #ECF0F1;
     border-color: transparent; }
     .folder-btn.active:hover {
-      background-color: #f5b043;
+      background-color: #b1bdbd;
       color: #ECF0F1; }
     .folder-btn.active:active {
       background-color: #E67E22;
@@ -90,6 +92,9 @@ body {
   .folder-btn:active {
     background-color: #BDC3C7;
     color: #ECF0F1; }
+
+.created-at {
+  color: #BDC3C7; }
 
 .input {
   border: none;
@@ -150,12 +155,6 @@ hr {
   .url-short:hover {
     color: #2980B9;
     text-decoration: underline; }
-
-.delete-folder-btn:hover {
-  color: #E74C3C; }
-
-.created-at {
-  color: #BDC3C7; }
 
 .delete-url-btn {
   display: block;
