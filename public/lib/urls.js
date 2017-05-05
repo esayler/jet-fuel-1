@@ -82,7 +82,6 @@ $('.url-submit').on('click', (e) => {
   const urlInput = $('.url-input').val();
   const regex = /[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig;
   const matches = urlInput.match(regex)
-  console.log(matches)
 
   if (matches) {
     addUrlFetch(matches[0])
