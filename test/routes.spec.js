@@ -352,5 +352,22 @@ describe('Api Routes', () => {
         done()
       })
     }).timeout(5000);
+
+    it.only('should produce a redirect and increment visits for that url', (done) => {
+      chai.request(server)
+      .get('/1')
+      .end((error, response) => {
+        response.should.have.status(200)
+        response.request.url.should.equal('http://www.nufc.com/')
+        response.should.redirect
+        response.should.redirectTo('http://www.nufc.com/');
+        chai.request(server)
+        .get('/api/v1/urls')
+        .end((error, response) => {
+          response.body[3].visits.should.equal(1)
+          done()
+        })
+      })
+    }).timeout(5000);
   })
 })
