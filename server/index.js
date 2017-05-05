@@ -19,6 +19,10 @@ app.set('port', process.env.PORT || 3000);
 app.use('/api/v1', router);
 app.use('/', redirect);
 
-app.listen(app.get('port'), () => {
-  console.log(`Server is listening on ${app.get('port')}.`)
-});
+if (!module.parent) {
+  app.listen(app.get('port'), () => {
+    console.log(`Server is listening on ${app.get('port')}.`)
+  });
+}
+
+module.exports = app;

@@ -49,6 +49,9 @@ router.get('/folders/:id/urls', (request, response) => {
 //Post Reqs
 router.post('/folders', (request, response) => {
   const { folder_name } = request.body;
+
+  if(!folder_name) { return response.sendStatus(400) }
+
   database('folders').insert({ folder_name }, ['id', 'folder_name'])
     .then(folder => {
       response.status(201).json(...folder)
