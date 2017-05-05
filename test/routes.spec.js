@@ -185,9 +185,134 @@ describe('Api Routes', () => {
     })
   })
 
+  describe('POST /api/v1/urls', () => {
+    it('should create a new url', (done) => {
+      chai.request(server)
+      .post('/api/v1/urls')
+      .send({
+        url: 'www.google.com',
+        activeFolder: 1,
+        visits: 0
+      })
+      .end((err, response) => {
+        response.should.have.status(201)
+        response.body.should.be.a('object')
+        response.body.should.have.property('id')
+        response.body.id.should.equal(5)
+        response.body.should.have.property('long_url')
+        response.body.long_url.should.equal('www.google.com')
+        response.body.should.have.property('visits')
+        response.body.visits.should.equal(0)
+        response.body.should.have.property('created_at')
+        response.body.created_at.should.equal('a few seconds ago')
+        response.body.should.have.property('updated_at')
+        response.body.updated_at.should.equal('a few seconds ago')
+        chai.request(server)
+        .get('/api/v1/urls')
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.should.be.json
+          response.body.should.be.a('array')
+          response.body.length.should.equal(5)
+          response.body[4].should.have.property('id')
+          response.body[4].id.should.equal(5)
+          response.body[4].should.have.property('long_url')
+          response.body[4].long_url.should.equal('www.google.com')
+          response.body[4].should.have.property('visits')
+          response.body[4].visits.should.equal(0)
+          response.body[4].should.have.property('created_at')
+          response.body[4].created_at.should.equal('a few seconds ago')
+          response.body[4].should.have.property('updated_at')
+          response.body[4].updated_at.should.equal('a few seconds ago')
+          done()
+        })
+      })
+    });
+  })
+
+  it('should not create a folder with missing data', (done) => {
+    chai.request(server)
+    .post('/api/v1/urls')
+    .send({
+      url: 'www.google.com',
+      visits: 0
+    })
+    .end((err, response) => {
+      response.should.have.status(400)
+      response.text.should.equal('Bad Request')
+      done()
+    })
+  })
+
+  describe('DELETE /api/v1/urls/:id', () => {
+    it('should delete a url', (done) => {
+      chai.request(server)
+      .get('/api/v1/urls')
+      .end((err, response) => {
+        response.body.length.should.equal(4)
+        chai.request(server)
+        .delete('/api/v1/urls/3')
+        .end((err, response) => {
+          response.should.have.status(200)
+          chai.request(server)
+          .get('/api/v1/urls')
+          .end((err, response) => {
+            response.should.be.json
+            response.body.should.be.a('array')
+            response.body.length.should.equal(3)
+            done()
+          })
+        })
+      })
+    });
+
+    it('should error out when url id does not exist', (done) => {
+      chai.request(server)
+      .delete('/api/v1/urls/err')
+      .end((err, response) => {
+        response.should.have.status(500)
+        response.text.should.equal('Internal Server Error')
+        done()
+      })
+    })
+  })
+
+  describe('DELETE /api/v1/folders/:id', () => {
+    it('should create a new url', (done) => {
+      chai.request(server)
+      .get('/api/v1/folders')
+      .end((err, response) => {
+        response.body.length.should.equal(2)
+        response.body[0].folder_name.should.equal('NUFC')
+        response.body[1].folder_name.should.equal('Code')
+        chai.request(server)
+        .delete('/api/v1/folders/2')
+        .end((err, response) => {
+          response.should.have.status(200)
+          chai.request(server)
+          .get('/api/v1/folders')
+          .end((err, response) => {
+            response.should.be.json
+            response.body.should.be.a('array')
+            response.body.length.should.equal(1)
+            response.body[0].folder_name.should.equal('NUFC')
+            done()
+          })
+        })
+      })
+    });
+
+    it('should error out when folder id does not exist', (done) => {
+      chai.request(server)
+      .delete('/api/v1/folders/err')
+      .end((err, response) => {
+        response.should.have.status(500)
+        response.text.should.equal('Internal Server Error')
+        done()
+      })
+    })
+  })
+
 })
 
-//POST /urls
-//DELETE /urls/:id
-//DELETE /folders/:id
 //REDIRECT
