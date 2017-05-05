@@ -172,16 +172,16 @@ describe('Api Routes', () => {
         })
       })
     })
-  })
 
-  it('should not create a folder with missing data', (done) => {
-    chai.request(server)
-    .post('/api/v1/folders')
-    .send({ })
-    .end((err, response) => {
-      response.should.have.status(400)
-      response.text.should.equal('Bad Request')
-      done()
+    it('should not create a folder with missing data', (done) => {
+      chai.request(server)
+      .post('/api/v1/folders')
+      .send({ })
+      .end((err, response) => {
+        response.should.have.status(400)
+        response.text.should.equal('Bad Request')
+        done()
+      })
     })
   })
 
@@ -228,19 +228,19 @@ describe('Api Routes', () => {
         })
       })
     });
-  })
 
-  it('should not create a folder with missing data', (done) => {
-    chai.request(server)
-    .post('/api/v1/urls')
-    .send({
-      url: 'www.google.com',
-      visits: 0
-    })
-    .end((err, response) => {
-      response.should.have.status(400)
-      response.text.should.equal('Bad Request')
-      done()
+    it('should not create a url with missing data', (done) => {
+      chai.request(server)
+      .post('/api/v1/urls')
+      .send({
+        url: 'www.google.com',
+        visits: 0
+      })
+      .end((err, response) => {
+        response.should.have.status(400)
+        response.text.should.equal('Bad Request')
+        done()
+      })
     })
   })
 
@@ -302,6 +302,33 @@ describe('Api Routes', () => {
       })
     });
 
+    it('should delete a folder and urls within that folder', (done) => {
+      chai.request(server)
+      .get('/api/v1/urls')
+      .end((err, response) => {
+        response.body.length.should.equal(4)
+        response.body[0].folder_id.should.equal(1)
+        response.body[1].folder_id.should.equal(1)
+        response.body[2].folder_id.should.equal(2)
+        response.body[3].folder_id.should.equal(2)
+        chai.request(server)
+        .delete('/api/v1/folders/1')
+        .end((err, response) => {
+          response.should.have.status(200)
+          chai.request(server)
+          .get('/api/v1/urls')
+          .end((err, response) => {
+            response.should.be.json
+            response.body.should.be.a('array')
+            response.body.length.should.equal(2)
+            response.body[0].folder_id.should.equal(2)
+            response.body[1].folder_id.should.equal(2)
+            done()
+          })
+        })
+      })
+    });
+
     it('should error out when folder id does not exist', (done) => {
       chai.request(server)
       .delete('/api/v1/folders/err')
@@ -324,7 +351,23 @@ describe('Api Routes', () => {
         response.should.redirectTo('https://www.nufc.co.uk/');
         done()
       })
-    })
-  })
+    }).timeout(5000);
 
+    it('should produce a redirect and increment visits for that url', (done) => {
+      chai.request(server)
+      .get('/1')
+      .end((error, response) => {
+        response.should.have.status(200)
+        response.request.url.should.equal('http://www.nufc.com/')
+        response.should.redirect
+        response.should.redirectTo('http://www.nufc.com/');
+        chai.request(server)
+        .get('/api/v1/urls')
+        .end((error, response) => {
+          response.body[3].visits.should.equal(1)
+          done()
+        })
+      })
+    }).timeout(5000);
+  })
 })
