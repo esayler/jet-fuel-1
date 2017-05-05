@@ -10,6 +10,7 @@ body {
 
 .logo {
   height: 40px;
+  // margin: 0 auto; 
 }
 
 .title {
@@ -22,6 +23,7 @@ body {
 .header {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: $flat-gray-4;
   height: 60px;
   padding: 0 40px;
@@ -48,6 +50,7 @@ body {
   background: transparent;
   color: $flat-green-4; 
   border: 1px solid $flat-green-4;
+  margin: 0 10px;
 
   &:hover {
     background: $flat-green-4;
@@ -61,12 +64,14 @@ body {
   justify-content: space-around;
   flex-wrap: wrap;
   align-items: center;
-  max-width: 700px;
+  max-width: 800px;
 }
 
  .folder-icon {
-   margin-right: 5px;
+   margin-right: 10px;
  }
+
+
 
 .folder-btn {
   @include btn-input-style; 
@@ -79,19 +84,30 @@ body {
   font-weight: lighter;
   font-size: 1.5em;
 
+   .delete-folder-btn {
+    float: right;
+    margin-left: 15px;
+    font-size: .75em;
+    height: 10px;
+
+      &:hover {
+        color: $flat-red-1;
+      }
+   }
+
   &:hover {
-    background-color: $flat-gray-3;
+    background-color: $flat-gray-2;
     color: lighten($flat-gray-1, 10%);
     border-color: transparent;
   }
 
    &.active {
-    background-color: $flat-orange-1;
+    background-color: $flat-gray-3;
     color: $flat-gray-1;
     border-color: transparent;
     
     &:hover {
-      background-color: lighten($flat-orange-1, 10%);
+      background-color: lighten($flat-gray-3, 10%);
       color: $flat-gray-1;
 
     }
@@ -106,6 +122,10 @@ body {
       background-color: $flat-gray-2;
       color: $flat-gray-1;
   }
+}
+
+.created-at {
+  color: $flat-gray-2;
 }
 
 .input {
@@ -180,15 +200,6 @@ hr {
   }
 }
 
-.delete-folder-btn {
-  &:hover {
-    color: $flat-red-1;
-  }
-}
-
-.created-at {
-  color: $flat-gray-2;
-}
 
 .delete-url-btn {
   display: block;
@@ -198,6 +209,10 @@ hr {
   &:hover {
     color: $flat-alizarin;
   }
+}
+
+.btn-sort {
+  margin: 0 10px;
 }
 
 
@@ -222,3 +237,4 @@ hr {
   color: $flat-gray-2;
   font-weight: lighter;
 }
+

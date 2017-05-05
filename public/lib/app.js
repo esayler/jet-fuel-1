@@ -2,9 +2,9 @@ let activeFolder = undefined;
 
 const setActiveFolderClass = (node) => {
   node.addClass('active')
-  node.children('.fa').addClass('fa-folder-open-o')
+  node.children('.folder-icon').addClass('fa-folder-open-o')
   node.siblings().removeClass('active')
-  node.siblings().children('.fa').removeClass('fa-folder-open-o')
+  node.siblings().children('.folder-icon').removeClass('fa-folder-open-o')
 }
 
 const clearInputs = () => {
@@ -35,10 +35,26 @@ const sortStatus = (() => {
 
   return {
     toggleSortOrder: (key) => {
-      if (key === 'visits') {
-        return sortOrderVisits = sortOrderVisits === 'desc' ? 'asc' : 'desc';
-      } else if (key === 'created_at') {
-        return sortOrderCreatedAt = sortOrderCreatedAt === 'desc' ? 'asc' : 'desc';
+      if (key === 'created_at') {
+        $('.btn-sort-visits').children('.fa').removeClass('fa-sort-up fa-sort-down').addClass('fa-sort');
+        if (sortOrderVisits === 'desc') {
+          sortOrderVisits = 'asc';
+          $('.btn-sort-date').children('.fa').removeClass('fa-sort-down').addClass('fa-sort-up');
+        } else {
+          sortOrderVisits = 'desc';
+          $('.btn-sort-date').children('.fa').removeClass('fa-sort-up').addClass('fa-sort-down');
+        }
+        return sortOrderVisits;
+      } else if (key === 'visits') {
+         if (sortOrderCreatedAt === 'desc') {
+           $('.btn-sort-date').children('.fa').removeClass('fa-sort-up fa-sort-down').addClass('fa-sort')
+           sortOrderCreatedAt = 'asc';
+           $('.btn-sort-visits').children('.fa').removeClass('fa-sort-down').addClass('fa-sort-up');
+        } else {
+           sortOrderCreatedAt = 'desc';
+           $('.btn-sort-visits').children('.fa').removeClass('fa-sort-up').addClass('fa-sort-down')
+        }
+        return sortOrderCreatedAt;
       }
     }
   }
@@ -48,7 +64,7 @@ const sortStatus = (() => {
 $('.btn-sort').on('click', function() {
   fetch(`/api/v1/folders/${activeFolder}/urls?key=${this.name}&order=${sortStatus.toggleSortOrder(this.name)}`)
     .then(response => {
-      return response.json()
+      return response.json();
     })
     .then(folderURLsList => {
       loopUrlData(folderURLsList);
