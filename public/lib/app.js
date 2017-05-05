@@ -2,9 +2,9 @@ let activeFolder = undefined;
 
 const setActiveFolderClass = (node) => {
   node.addClass('active')
-  node.children('.fa').addClass('fa-folder-open-o')
+  node.children('.folder-icon').addClass('fa-folder-open-o')
   node.siblings().removeClass('active')
-  node.siblings().children('.fa').removeClass('fa-folder-open-o')
+  node.siblings().children('.folder-icon').removeClass('fa-folder-open-o')
 }
 
 const clearInputs = () => {

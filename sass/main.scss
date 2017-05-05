@@ -48,6 +48,7 @@ body {
   background: transparent;
   color: $flat-green-4; 
   border: 1px solid $flat-green-4;
+  margin: 0 10px;
 
   &:hover {
     background: $flat-green-4;
@@ -61,12 +62,14 @@ body {
   justify-content: space-around;
   flex-wrap: wrap;
   align-items: center;
-  max-width: 700px;
+  max-width: 800px;
 }
 
  .folder-icon {
-   margin-right: 5px;
+   margin-right: 10px;
  }
+
+
 
 .folder-btn {
   @include btn-input-style; 
@@ -78,6 +81,14 @@ body {
   color: $flat-gray-4;
   font-weight: lighter;
   font-size: 1.5em;
+
+   .delete-folder-btn {
+    display: inline-block;
+    float: right;
+    margin-left: 10px;
+    font-size: .75em;
+    height: 10px;
+   }
 
   &:hover {
     background-color: $flat-gray-3;
@@ -200,6 +211,10 @@ hr {
   }
 }
 
+.btn-sort {
+  margin: 0 10px;
+}
+
 
 .visits {
   font-weight: lighter;
@@ -222,3 +237,4 @@ hr {
   color: $flat-gray-2;
   font-weight: lighter;
 }
+

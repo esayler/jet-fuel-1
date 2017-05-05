@@ -27,9 +27,9 @@ const appendFolderLinks = (linkInfo) => {
     <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o fa-fw" aria-hidden="true"></i>${folder_name}</button>
   `);
   const deleteBtn = $(`
-    <i class="delete-folder-btn fa fa-trash fa-fw" id="${id}" aria-hidden="true"></i>
+    <i class="delete-folder-btn fa fa-times fa-fw" id="${id}" aria-hidden="true"></i>
   `)
-  $('#folders').append(folderLink.append(deleteBtn))
+  $('#folders').append(folderLink.prepend(deleteBtn))
   activeFolder = id;
   setActiveFolderClass(folderLink)
   folderUrlFetch(folderLink, id)
