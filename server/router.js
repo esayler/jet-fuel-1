@@ -63,7 +63,7 @@ router.post('/folders', (request, response) => {
 
 router.post('/urls', (request, response) => {
   const { url, activeFolder } = request.body;
-  if(!activeFolder) { return response.sendStatus(400) }
+  if(!activeFolder || !url) { return response.sendStatus(400) }
 
   database('urls').insert({ long_url: url, folder_id: activeFolder, visits: 0 }, ['id', 'long_url', 'visits', 'created_at' ])
     .then(urls => {
