@@ -91,7 +91,7 @@ $('.url-submit').on('click', (e) => {
 
   if (matches) {
     addUrlFetch(matches[0])
-    clearInputs();
+    // clearInputs();
   } else {
     return $('.error-msg').text('Please enter a valid URL')
   }
@@ -109,5 +109,6 @@ const addUrlFetch = (url) => {
   })
   .then(urlData => {
     appendUrlATags(urlData);
+    clearInputs();
   })
 }

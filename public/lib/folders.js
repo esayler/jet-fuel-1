@@ -64,7 +64,7 @@ $('.folder-submit').on('click', (e) => {
 
   addFolderFetch(folderInput)
   $('#urls').empty()
-  clearInputs();
+  // clearInputs();
 })
 
 // Folder input POST call and DOM append
@@ -79,5 +79,6 @@ const addFolderFetch = (folder_name) => {
   })
   .then(folderData => {
     appendFolderLinks('post', folderData);
+    clearInputs();
   })
 }
