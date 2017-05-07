@@ -26,11 +26,9 @@ const loopUrlData = (urlList) => {
   )
 }
 
-//Helper function to create url link nodes
-const appendUrlATags = (urlInfo) => {
+const urlTemplete = (urlInfo) => {
   const { id, long_url, visits, created_at } = urlInfo;
-  const deleteURLButton = $(`<i class="delete-url-btn fa fa-trash-o" id=${id} aria-hidden="true"></i>`)
-  const urlATag = $(`
+  return $(`
     <article class="card url-card">
       <a class="link url-link" href="/${id}" target="_blank">
         <i class="fa fa-external-link" aria-hidden="true"></i>
@@ -49,9 +47,17 @@ const appendUrlATags = (urlInfo) => {
          Created: ${created_at}
       </p>
     </article>
-  `).prepend(deleteURLButton)
-  $('#urls').append(urlATag)
-  deleteURL(deleteURLButton, id)
+  `)
+}
+
+//Helper function to create url link nodes
+const appendUrlATags = (urlInfo) => {
+  const { id } = urlInfo;
+  const deleteURLButton = $(`<i class="delete-url-btn fa fa-trash-o" id=${id} aria-hidden="true"></i>`);
+  const urlATag = urlTemplete(urlInfo);
+  urlATag.prepend(deleteURLButton);
+  $('#urls').append(urlATag);
+  deleteURL(deleteURLButton, id);
 }
 
 //Delete URL closure
@@ -85,7 +91,7 @@ $('.url-submit').on('click', (e) => {
 
   if (matches) {
     addUrlFetch(matches[0])
-    clearInputs();
+    // clearInputs();
   } else {
     return $('.error-msg').text('Please enter a valid URL')
   }
@@ -103,5 +109,6 @@ const addUrlFetch = (url) => {
   })
   .then(urlData => {
     appendUrlATags(urlData);
+    clearInputs();
   })
 }

@@ -11,17 +11,18 @@ const fetchAllFolders = () => {
 
 //Function to append folders to DOM
 const loopFolderData = (foldersList) => {
-  $('#folders').empty();
+  const folder = $('#folders')
+  folder.empty();
   foldersList.forEach(folder => {
-    appendFolderLinks(folder)
+    appendFolderLinks('get', folder)
   })
   activeFolder = undefined;
-  $('#folders').children().removeClass('active')
-  $('#folders').children().children('.fa').removeClass('fa-folder-open')
+  folder.children().removeClass('active')
+  folder.children().children('.fa').removeClass('fa-folder-open')
 }
 
 //Helper function to create folder link button
-const appendFolderLinks = (linkInfo) => {
+const appendFolderLinks = (fetch, linkInfo) => {
   const { id, folder_name } = linkInfo;
   const folderLink = $(`
     <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o fa-fw" aria-hidden="true"></i>${folder_name}</button>
@@ -31,7 +32,7 @@ const appendFolderLinks = (linkInfo) => {
   `)
   $('#folders').append(folderLink.prepend(deleteBtn))
   activeFolder = id;
-  setActiveFolderClass(folderLink)
+  fetch !== 'get'  && (setActiveFolderClass(folderLink))
   folderUrlFetch(folderLink, id)
   deleteFolder(deleteBtn, id)
 }
@@ -63,7 +64,7 @@ $('.folder-submit').on('click', (e) => {
 
   addFolderFetch(folderInput)
   $('#urls').empty()
-  clearInputs();
+  // clearInputs();
 })
 
 // Folder input POST call and DOM append
@@ -77,6 +78,7 @@ const addFolderFetch = (folder_name) => {
     return response.json();
   })
   .then(folderData => {
-    appendFolderLinks(folderData);
+    appendFolderLinks('post', folderData);
+    clearInputs();
   })
 }
