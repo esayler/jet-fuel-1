@@ -11,13 +11,14 @@ const fetchAllFolders = () => {
 
 //Function to append folders to DOM
 const loopFolderData = (foldersList) => {
-  $('#folders').empty();
+  const folder = $('#folders')
+  folder.empty();
   foldersList.forEach(folder => {
     appendFolderLinks(folder)
   })
   activeFolder = undefined;
-  $('#folders').children().removeClass('active')
-  $('#folders').children().children('.fa').removeClass('fa-folder-open')
+  folder.children().removeClass('active')
+  folder.children().children('.fa').removeClass('fa-folder-open')
 }
 
 //Helper function to create folder link button
