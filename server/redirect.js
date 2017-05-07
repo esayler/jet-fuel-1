@@ -14,7 +14,7 @@ redirect.get('/:id', (request, response) => {
     })
     .then(matchedURL => {
       const { long_url } = matchedURL[0];
-      response.redirect(`http://${long_url}`);
+      response.redirect(302, `http://${long_url}`);
     })
 })
 
