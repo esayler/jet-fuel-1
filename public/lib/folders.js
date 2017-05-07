@@ -14,7 +14,7 @@ const loopFolderData = (foldersList) => {
   const folder = $('#folders')
   folder.empty();
   foldersList.forEach(folder => {
-    appendFolderLinks(folder)
+    appendFolderLinks('get', folder)
   })
   activeFolder = undefined;
   folder.children().removeClass('active')
@@ -22,7 +22,7 @@ const loopFolderData = (foldersList) => {
 }
 
 //Helper function to create folder link button
-const appendFolderLinks = (linkInfo) => {
+const appendFolderLinks = (fetch, linkInfo) => {
   const { id, folder_name } = linkInfo;
   const folderLink = $(`
     <button class="folder-btn" id="${id}"><i class="folder-icon fa fa-folder-o fa-fw" aria-hidden="true"></i>${folder_name}</button>
@@ -32,7 +32,7 @@ const appendFolderLinks = (linkInfo) => {
   `)
   $('#folders').append(folderLink.prepend(deleteBtn))
   activeFolder = id;
-  setActiveFolderClass(folderLink)
+  fetch !== 'get'  && (setActiveFolderClass(folderLink))
   folderUrlFetch(folderLink, id)
   deleteFolder(deleteBtn, id)
 }
@@ -78,6 +78,6 @@ const addFolderFetch = (folder_name) => {
     return response.json();
   })
   .then(folderData => {
-    appendFolderLinks(folderData);
+    appendFolderLinks('post', folderData);
   })
 }
