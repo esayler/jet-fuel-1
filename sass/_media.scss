@@ -1,0 +1,39 @@
+@media screen and (max-width: 860px) {
+  .content {
+    .form-container {
+      justify-content: flex-end;
+      width: 100%;
+      .btn {
+        margin: 5px;
+      }
+      form {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 50%;
+      }
+      input {
+        width: 70%;
+      }
+      .btn-submit {
+        width: 30%;
+        font-size: 0.8em;
+      }
+      .btn-sort {
+        font-size: 0.8em;
+      }
+    }
+  }
+  #folders {
+    .folder-btn {
+      font-size: 1.2em;
+      margin: 0 10px;
+    }
+  }
+  #urls {
+    .card {
+      width: 40%;
+      margin: 5px;
+    }
+  }
+}
